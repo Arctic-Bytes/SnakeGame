@@ -1,7 +1,6 @@
 # Example file showing a basic pygame "game loop"
-import random
 
-from Controls import controls
+from Controls import *
 from Objects import *
 
 direction = -1
@@ -10,7 +9,7 @@ ycord = 0
 xapple = random.randrange(0, 1280)
 yapple = random.randrange(0, 720)
 snakeWidth = 50
-movementSpeed = 5
+setMovementSpeed = 5
 bodyparts = []
 snakeLength = 20
 snakeLengthIncrease = 20
@@ -40,14 +39,7 @@ while running:
     snake = drawSnake(screen, xcord, ycord)
     apples = apple(screen, xapple, yapple)
 
-    if direction == 0:
-        ycord += -movementSpeed
-    if direction == 1:
-        ycord += movementSpeed
-    if direction == 2:
-        xcord += -movementSpeed
-    if direction == 3:
-        xcord += movementSpeed
+    xcord, ycord = movementSpeed(xcord, ycord, setMovementSpeed)
 
     if xcord < screenRect.left:
         xcord = screenRect.left
@@ -58,11 +50,9 @@ while running:
     if ycord > screenRect.bottom - snakeWidth:
         ycord = screenRect.bottom - snakeWidth
 
-    collect = pygame.Rect.colliderect(snake, apples)
-    if collect:
-        xapple = random.randrange(0, 1100)
-        yapple = random.randrange(0, 690)
-        snakeLength += snakeLengthIncrease
+    appleCollected = appleCollection(snakeLength, snakeLengthIncrease, snake, apples)
+    if appleCollected:
+        xapple, yapple, snakeLength = appleCollected
 
     for part in bodyparts[:-21]:
         head = pygame.Rect(xcord, ycord, snakeWidth, snakeWidth)

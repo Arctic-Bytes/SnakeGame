@@ -6,10 +6,6 @@ direction = -1  # 0 = up, 1 = down, 2 = left, 3 = right
 def controls(event):
     global direction
     if event.type == pygame.KEYDOWN:
-        # if event.mod == pygame.KMOD_NONE:
-            # print('No modifier keys were in a pressed state when this '
-                  # 'event occurred.')
-        # else:
         if event.dict["unicode"] == 'w':
             direction = 0
         if event.dict["unicode"] == 's':
@@ -21,3 +17,14 @@ def controls(event):
 
     return direction
 
+
+def movementSpeed(xcord, ycord, movementSpeed):
+    if direction == 0:
+        ycord += -movementSpeed
+    if direction == 1:
+        ycord += movementSpeed
+    if direction == 2:
+        xcord += -movementSpeed
+    if direction == 3:
+        xcord += movementSpeed
+    return xcord, ycord
