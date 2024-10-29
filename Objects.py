@@ -15,7 +15,7 @@ def apple(screen, x, y):
 def appleCollection(snakeLength, snakeLengthIncrease, snake, apples):
     collect = pygame.Rect.colliderect(snake, apples)
     if collect:
-        xapple = random.randrange(0, 1100)
-        yapple = random.randrange(0, 690)
+        xapple = random.randrange(0, 1000)
+        yapple = random.randrange(0, 650)
         snakeLength += snakeLengthIncrease
         return xapple, yapple, snakeLength

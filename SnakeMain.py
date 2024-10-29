@@ -4,15 +4,16 @@ from Controls import *
 from Objects import *
 
 direction = -1
-xcord = 0
-ycord = 0
-xapple = random.randrange(0, 1280)
-yapple = random.randrange(0, 720)
+xcord = 50
+ycord = 50
+xapple = random.randrange(0, 1000)
+yapple = random.randrange(0, 650)
 snakeWidth = 50
 setMovementSpeed = 5
 bodyparts = []
 snakeLength = 20
 snakeLengthIncrease = 20
+counter = 0
 
 # pygame setup
 pygame.init()
@@ -53,6 +54,7 @@ while running:
     appleCollected = appleCollection(snakeLength, snakeLengthIncrease, snake, apples)
     if appleCollected:
         xapple, yapple, snakeLength = appleCollected
+        counter += 1
 
     for part in bodyparts[:-21]:
         head = pygame.Rect(xcord, ycord, snakeWidth, snakeWidth)
@@ -73,6 +75,10 @@ while running:
     for x, y in bodyparts:
         drawSnake(screen, x, y)
 
+    # score counter
+    font = pygame.font.SysFont('Elephant', 50)
+    scoreCounter = font.render('Score: ' + str(counter), False, (255, 90, 71))
+    screen.blit(scoreCounter, (0, 0))
     # flip() the display to put your work on screen
     pygame.display.flip()
 
